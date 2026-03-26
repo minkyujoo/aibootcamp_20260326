@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+.env
+docs/env/azure-openai.env
+frontend/node_modules/
+frontend/dist/
+*.egg-info/
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+.pytest_cache/
+.ruff_cache/
+
+# 로컬 Chroma 등 (data/ 외 추가 경로)
+chroma/
+*.sqlite3

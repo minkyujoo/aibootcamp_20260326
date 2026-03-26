@@ -1,0 +1,32 @@
+:root {
+  /* SK 그룹 CI (공개 가이드 기준 대표색) */
+  --sk-red: #ea002c;
+  --sk-orange: #f47725;
+  --sk-navy: #0e306d;
+  --sk-blue: #0072c6;
+  --sk-teal: #009a93;
+  --sk-white: #ffffff;
+  --sk-black: #1a1a1a;
+  --sk-gray-100: #f4f6f8;
+  --sk-gray-200: #e8ecf1;
+  --sk-gray-500: #6b7280;
+  --radius: 12px;
+  --shadow: 0 8px 24px rgba(14, 48, 109, 0.08);
+  font-family: "Noto Sans KR", system-ui, sans-serif;
+  line-height: 1.5;
+  color: var(--sk-black);
+  background: var(--sk-gray-100);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}

@@ -1,0 +1,28 @@
+---
+description: RAG Orchestrator 프로젝트 공통 규칙 (Python/FastAPI/프론트 경로)
+alwaysApply: true
+---
+
+# RAG Orchestrator — 공통 개발 표준
+
+## 언어
+
+- 사용자 대응 및 주석은 **한국어**를 기본으로 한다.
+
+## 디렉터리
+
+- 백엔드 패키지: `rag_agent/`
+- MCP 서버: `mcp_servers/rag_db/`
+- 프론트엔드: `frontend/`
+- Chroma 영속 데이터: `data/chroma` (저장소에 커밋하지 않음)
+
+## 실행
+
+- API: `uvicorn rag_agent.api.main:app --reload --port 8000` (프로젝트 루트에서)
+- UI: `cd frontend && npm run dev`
+- RAG DB는 **MCP 도구**(`rag_ingest`, `rag_search`, `rag_stats`)로만 조작하는 것을 원칙으로 한다. 백엔드는 동일 프로세스 내 직접 Chroma 호출을 추가하지 않는다.
+
+## 보안
+
+- API 키·시크릿은 `.env`에 두고 저장소에 포함하지 않는다.
+- `.env.example`만 버전 관리한다.

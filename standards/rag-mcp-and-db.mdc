@@ -1,0 +1,25 @@
+---
+description: MCP RAG DB 서버(Chroma) 확장·운영 규칙
+globs: mcp_servers/**/*.py
+alwaysApply: false
+---
+
+# MCP + Chroma RAG DB 표준
+
+## 역할 분리
+
+- 벡터 저장·검색 로직은 `mcp_servers/rag_db/server.py`의 MCP 도구에 둔다.
+- 새 DB 작업이 필요하면 **도구 추가**로 해결하고, HTTP 핸들러에 SQL/ORM을 직접 넣지 않는다.
+
+## 도구 설계
+
+- 입력·출력은 **JSON 직렬화 가능한 타입**으로 유지한다.
+- `rag_ingest`: `chunk_size>0`이면 문자 단위 분할 후 `parent_doc_id`, `chunk_index` 메타를 붙인다. `chunk_overlap`은 인접 청크 겹침.
+- `rag_search`: `rerank=true`일 때 후보를 넓게 가져온 뒤 쿼리·문서 토큰 겹침으로 재정렬한다.
+- `rag_search` 결과는 항상 문서 id, 본문, metadata, distance(있을 때)를 포함한다.
+- 대량 인제스트 시에는 청크 단위 도구를 추가하고, 한 호출 페이로드 크기를 제한한다.
+
+## 환경
+
+- `CHROMA_PATH`로 영속 경로를 통일한다. 기본값 `./data/chroma`.
+- MCP를 Cursor에 붙일 때는 `stdio`로 동일 모듈을 실행하도록 구성한다.

@@ -1,0 +1,25 @@
+---
+description: 멀티에이전트 오케스트레이션 및 상태 공유 규칙
+globs: rag_agent/agents/**/*.py,rag_agent/orchestrator.py
+alwaysApply: false
+---
+
+# 멀티에이전트 오케스트레이션 표준
+
+## 에이전트 구성
+
+- **OrchestratorAgent**: 실행 순서와 공유 `AgentState` 갱신만 담당한다.
+- **QueryPlannerAgent**: 검색 쿼리 확정 (LLM은 선택).
+- **RetrievalAgent**: **반드시 MCP** `rag_search`로 근거 수집.
+- **SynthesisAgent**: 근거가 없으면 답변을 만들지 않는다.
+- **VerifierAgent**: 단정·근거 불일치 등 간단 검증만 수행한다.
+
+## 상태
+
+- 에이전트 간 데이터는 `AgentState` 한 곳에서만 주고받는다.
+- 각 단계는 `agent_trace`에 요약 로그를 남긴다.
+
+## 변경 시
+
+- 새 에이전트를 넣을 때는 Orchestrator의 단방향 파이프라인을 깨지 않도록 한다 (순환 호출 금지).
+- 외부 도구 호출은 MCP 또는 명시된 클라이언트 모듈로만 한다.

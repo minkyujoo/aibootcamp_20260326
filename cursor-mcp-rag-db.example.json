@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "rag-db": {
+      "command": "python",
+      "args": ["-m", "mcp_servers.rag_db"],
+      "cwd": "${workspaceFolder}/rag-orchestrator-agent",
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/rag-orchestrator-agent",
+        "CHROMA_PATH": "${workspaceFolder}/rag-orchestrator-agent/data/chroma"
+      }
+    }
+  }
+}
